@@ -1,0 +1,22 @@
+.block {
+    text-align: center;
+    vertical-align: middle;
+}
+.circle {
+    border-radius: 45px;
+    height: 45px;
+    width: 45px;
+    margin-bottom: 10px;
+    display: table;
+}
+.circle p {
+    font-weight: bold;
+    font-size: 30px;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.header-sayi{
+    font-size: 50px;
+    /* margin: -40px 0 -5px 0 !important; */
+}

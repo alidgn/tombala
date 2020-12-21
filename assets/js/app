@@ -1,0 +1,83 @@
+var cekilenler = [];
+var header = document.getElementById("header-sayi");
+
+function init(){
+
+    var root = document.getElementById("root");
+    var numberofcoin = 90;
+
+    for(var i=0; i<numberofcoin; i++){
+        
+        var coin = i+1;
+        
+        var item = `<div class="col-2 col-sm-1 col-md-1 col-lg-1 col-xl-1 d-flex justify-content-center block"><div id="coin-${coin}" class="circle shadow bg-secondary text-light"><p>${coin}</p></div></div>`;
+
+        root.innerHTML = root.innerHTML + item;
+    }
+}
+
+function update(cekilen){
+
+    header.parentElement.classList.toggle("header-sayi", true);
+
+    if(cekilen > 90 || cekilen < 1 || cekilenler.includes(cekilen)){
+        yeniCek();
+        return;
+    }
+
+    header.innerHTML = cekilen;
+
+    cekilenler.push(cekilen);
+
+    var coin = document.getElementById(`coin-${cekilen}`);
+
+    coin.classList.remove("bg-secondary","text-light");
+    coin.classList.add("bg-warning","text-dark");
+}
+
+function generateNumber(min, max){
+    return Math.round(Math.random() * (max - min)) + min;
+}
+
+function openModal(){
+    
+
+    var myModal = new bootstrap.Modal(document.getElementById('karistir'), {
+        keyboard: false
+      });
+    myModal.show();
+
+
+    var second = generateNumber(3,5);
+
+    setTimeout(function() { myModal.hide(); responsiveVoice.speak(`${cekilenler[(cekilenler.length)-1]}`, "Turkish Male");}, second*1000);
+
+}
+
+function yeniCek(){
+    var cekilenSayi = generateNumber(-100,200);
+
+    update(cekilenSayi);
+}
+
+document.getElementById("sayi-cek").addEventListener("click", function(){
+    openModal();
+    setTimeout(function() { yeniCek(); }, 2000);
+});
+
+
+function test(num){
+
+    var count = 0;
+    while(true){
+        count++;
+        yeniCek();
+        if(cekilenler.includes(num)){
+            console.log(num + " -> " + count +". denemede bulundu.");
+            return;
+        }
+    }
+
+}
+
+init();
